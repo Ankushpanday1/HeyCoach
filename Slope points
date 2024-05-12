@@ -1,0 +1,46 @@
+write code in C++ where i have arr = [ (x1, y1) , (x2, y2) , (x3, y3), (x4, y4) ] , sort these points smaller the angle earlier the possible through slope formula 
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <cmath>
+
+using namespace std;
+
+// Structure to represent a point (x, y)
+struct Point {
+    double x, y;
+
+    // Constructor
+    Point(double x, double y) : x(x), y(y) {}
+
+    // Function to calculate slope relative to the origin (0, 0)
+    double slope() const {
+        // Avoid division by zero for points on the y-axis
+        if (x == 0 && y == 0) {
+            return 0;
+        }
+        return y / (x == 0 ? 1 : x); // Handle points on the y-axis
+    }
+};
+
+// Comparator function to sort points based on slope
+bool comparePoints(const Point& p1, const Point& p2) {
+    return p1.slope() < p2.slope();
+}
+
+int main() {
+    // Input array of points
+    vector<Point> arr = {Point(3, 5), Point(-2, 4), Point(-1, -2), Point(4, 3)};
+
+    // Sort the points based on their slopes
+    sort(arr.begin(), arr.end(), comparePoints);
+
+    // Output the sorted points
+    cout << "Sorted points based on slope:\n";
+    for (const Point& p : arr) {
+        cout << "(" << p.x << ", " << p.y << ")\n";
+    }
+
+    return 0;
+}
