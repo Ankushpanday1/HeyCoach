@@ -1,0 +1,36 @@
+write the code i have str = " I am a data scientist and I teach at HeyCoach " , Sort this words in sentence on basis of length in easiest code with very less lines and easy explaination
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <sstream>
+
+using namespace std;
+
+int main() {
+    string str = "I am a data scientist and I teach at HeyCoach";
+    
+    // Step 1: Split the sentence into individual words
+    stringstream ss(str);
+    string word;
+    vector<string> words;
+    while (ss >> word) {
+        words.push_back(word);
+    }
+    
+    // Step 2: Sort the words based on their length
+    sort(words.begin(), words.end(), [](const string &a, const string &b) {
+        return a.length() < b.length();
+    });
+    
+    // Step 3: Join the sorted words back into a sentence
+    string sortedSentence;
+    for (const string &w : words) {
+        sortedSentence += w + " ";
+    }
+    
+    // Output the sorted sentence
+    cout << "Sorted sentence: " << sortedSentence << endl;
+    
+    return 0;
+}
