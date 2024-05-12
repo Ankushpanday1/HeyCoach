@@ -1,0 +1,53 @@
+write the code for arr = ["apple", "google" , "strawberry ", "peach" , "reach" , "maple", "gooseberry", "blackberry", "cherry" , "toggle" , "staple"], arrange the arr in such a way it should start rhyming in C++ with very easy code and easy explaination
+
+
+#include <iostream>
+#include <vector>
+#include <unordered_map>
+#include <algorithm>
+
+using namespace std;
+
+// Function to extract the last two letters of a word
+string getRhyme(const string& word) {
+    if (word.length() >= 2)
+        return word.substr(word.length() - 2);
+    else
+        return word; // For shorter words, return the whole word
+}
+
+int main() {
+    // Input array
+    vector<string> arr = {"apple", "google", "strawberry", "peach", "reach", "maple", "gooseberry", "blackberry", "cherry", "toggle", "staple"};
+    
+    // Create a map to store words based on their rhyme
+    unordered_map<string, vector<string>> rhymeMap;
+    
+    // Group words based on their rhyme
+    for (const string& word : arr) {
+        string rhyme = getRhyme(word);
+        rhymeMap[rhyme].push_back(word);
+    }
+    
+    // Sort words in each group
+    for (auto& pair : rhymeMap) {
+        sort(pair.second.begin(), pair.second.end());
+    }
+    
+    // Combine sorted words
+    vector<string> sortedArr;
+    for (const auto& pair : rhymeMap) {
+        for (const string& word : pair.second) {
+            sortedArr.push_back(word);
+        }
+    }
+    
+    // Output the arranged array
+    cout << "Arranged array rhyming: ";
+    for (const string& word : sortedArr) {
+        cout << word << " ";
+    }
+    cout << endl;
+    
+    return 0;
+}
