@@ -1,0 +1,40 @@
+// write an code to solve this problem i have arr = [ 98,9,8,88,11,19], you have to truncate this array to get largest number from the arr , Output = 9988881911 in C++
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <string>
+
+using namespace std;
+
+// Custom comparison function to sort numbers as strings
+bool customCompare(const string &a, const string &b) {
+    return a + b > b + a;
+}
+
+string largestNumber(vector<int>& nums) {
+    // Convert numbers to strings
+    vector<string> strs;
+    for (int num : nums) {
+        strs.push_back(to_string(num));
+    }
+    
+    // Sort the strings using custom comparison
+    sort(strs.begin(), strs.end(), customCompare);
+    
+    // Concatenate the sorted strings to form the largest number
+    string result;
+    for (const string &s : strs) {
+        result += s;
+    }
+    
+    return result;
+}
+
+int main() {
+    vector<int> arr = {98, 9, 8, 88, 11, 19};
+    string largestNum = largestNumber(arr);
+    cout << "Largest number: " << largestNum << endl;
+    
+    return 0;
+}
